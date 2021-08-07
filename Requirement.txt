@@ -1,0 +1,42 @@
+//Requirements
+
+    We are a company who handle books
+
+books
+isbn,title,author[],language,pubdate,num page,category[]
+
+Authors
+name , id,books[]
+
+publications
+name,id,books[]
+ 1-Books->API We need an api to    
+ get all books,   //done
+ specific book,   //done
+ list of books based on categories ,   //done
+ list of books based on authors.   //remaing
+
+//post->new book  //done
+//put->update book details   //done
+//new author
+//delete->delete a book
+//delete a author from a book
+2- Authors->API to get
+ all autors,    //done
+ specific author,  //done
+ to get a list of authors based on book.//done
+ post->new author   //done
+//put->update author details  //done
+//delete->delete a author
+
+3-Publications->Api to get
+ all publications,          //done
+ specific publication,      //done
+ publication based on a book. //done
+ post->new publication    //done
+//put->update publications details
+update or add new book to the publication //done
+//delete->delete a book from publication
+//delete a publication
+  
+How the server serves the request  
