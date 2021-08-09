@@ -1,12 +1,22 @@
+require("dotenv").config();
+
 //framework
 const { response, request } = require("express");
 const express=require("express");
+const mongoose=require("mongoose");
 //database
 const database=require("./database/index");
 //installing express
 const shapeAI =express();
 //configuration
 shapeAI.use(express.json());
+//establise database connection
+mongoose.connect(process.env.MONGO_URL,{
+    useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+}).then(()=>console.log("connection established!!!!!"));
 
 /*
 route
@@ -392,3 +402,8 @@ method         DELETE
     return res.json({books:database.books,publications:database.publications,});
  });
 shapeAI.listen(3000,()=>console.log("Server is running"));
+//mongoDB is schemaless
+//mongoose helps you with validation ,relationship with other data.
+//mongoose model
+//model->document model of mongoDB
+//Schema->model->use them
