@@ -1,11 +1,14 @@
 require("dotenv").config();
 
 //framework
-const { response, request } = require("express");
 const express=require("express");
 const mongoose=require("mongoose");
 //database
 const database=require("./database/index");
+//Models
+const BookModel=require("./database/book");
+const AuthorModel=require("./database/author");
+const PublicationModel=require("./database/publication");
 //installing express
 const shapeAI =express();
 //configuration
@@ -25,8 +28,9 @@ access         public
 parameters     none
 method         get   
  */
-shapeAI.get("/",(require,res)=>{
-    return res.json({books:database.books});
+shapeAI.get("/",async(req,res)=>{
+    const getAllBooks=await BookModel.find();
+    return res.json({books: getAllBooks});
 });
 
 /*
@@ -36,11 +40,9 @@ access         public
 parameters     ISBN
 method         get   
  */
-shapeAI.get("/is/:isbn",(req,res)=>{
-    const getSpecificBook=database.books.filter(
-        (book)=>book.ISBN===req.params.isbn
-            );
-            if(getSpecificBook.length===0)
+shapeAI.get("/is/:isbn",async (req,res)=>{
+    const getSpecificBook=await BookModel.findOne({ISBN: req.params.isbn});
+            if(!getSpecificBook)
             {
                 return res.json({error: `No book found for the ISBN of ${req.params.isbn}`,
             });
@@ -55,11 +57,9 @@ access         public
 parameters     category
 method         get   
  */
-shapeAI.get("/c/:category",(req,res)=>{
-    const getSpecificBooks=database.books.filter(
-        (book)=>book.category.includes(req.params.category)
-            );
-            if(getSpecificBooks.length===0)
+shapeAI.get("/c/:category",async (req,res)=>{
+    const getSpecificBooks=await BookModel.findOne({category: req.params.category,});
+            if(!getSpecificBooks)
             {
                 return res.json({error: `No book found for the ISBN of ${req.params.category}`,
             });
@@ -93,8 +93,9 @@ access         public
 parameters     none
 method         get   
  */
-shapeAI.get("/author",(require,res)=>{
-    return res.json({authors:database.authors});
+shapeAI.get("/author",async(require,res)=>{
+    const getAllAuthors=await AuthorModel.find();
+    return res.json({authors:getAllAuthors});
 });
 
 /*
@@ -144,8 +145,9 @@ access         public
 parameters     none
 method         get   
  */
-shapeAI.get("/publications",(req,res)=>{
-    return res.json({publications: database.publications});
+shapeAI.get("/publications",async(req,res)=>{
+    const getAllPublications=await PublicationModel.find();
+    return res.json({publications: getAllPublications});
 });
 
 /*
@@ -195,10 +197,10 @@ access         public
 parameters     isbn
 method         post  
  */
-shapeAI.post("/book/new",(req,res)=>{
+shapeAI.post("/book/new",async (req,res)=>{
      const {newBook}=req.body;
-     database.books.push(newBook);
-     return res.json({books:database.books,message:"book was added!"});
+     const addNewBook=BookModel.create(newBook);
+     return res.json({books:addNewBook,message:"book was added!"});
 });
 
 /*
@@ -210,8 +212,8 @@ method         post
  */
 shapeAI.post("/author/new",(req,res)=>{
     const{newAuthor}=req.body;
-    database.authors.push(newAuthor);
-    return res.json({authors:database.authors,message:"author was added!"});
+    const addNewAuthor=AuthorModel.create(newAuthor);
+    return res.json({authors:addNewAuthor,message:"author was added!"});
 });
 
 /*

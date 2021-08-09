@@ -1,15 +1,15 @@
 const mongoose=require("mongoose");
-//Create book schema
+//Create author schema
 const BookSchema=mongoose.Schema({
     ISBN:String,
     title:String,
     authors:[Number],
     language:String,
     pubDate:String,
-    numOfPage: NUmber,
+    numOfPage:Number,
     category:[String],
     publications:Number
 });
-//create book model
-const BookModel=mongoose.model(BookSchema);
+//create Author model
+const BookModel=mongoose.model("books",BookSchema);
 module.exports=BookModel;

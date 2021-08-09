@@ -11,18 +11,18 @@ name , id,books[]
 publications
 name,id,books[]
  1-Books->API We need an api to    
- get all books,   //done
- specific book,   //done
+ get all books,   //done    **
+ specific book,   //done    **
  list of books based on categories ,   //done
  list of books based on authors.   //done
 
 //post->new book  //done
 //put->update book details   //done
-//new author
+//new author    **
 //delete->delete a book   //done
 //delete a author from a book   //done
 2- Authors->API to get
- all autors,    //done
+ all autors,    //done   **
  specific author,  //done
  to get a list of authors based on book.//done
  post->new author   //done
